@@ -1,0 +1,6 @@
+# Protection requires GitHub rulesets/branch protection; this file alone does not enforce approval.
+* @Vijendra07Kulhade
+/factory/ @Vijendra07Kulhade
+/examples/baseline/ @Vijendra07Kulhade
+/.github/ @Vijendra07Kulhade
+/.claude/ @Vijendra07Kulhade

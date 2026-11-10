@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "fixture_mode": true,
+  "incident_id": "incident-0",
+  "scenario": "roas-unit-mismatch",
+  "tenant": "tenant-synthetic-a",
+  "agent": "Ads-Agent",
+  "skill": "roas_reporting",
+  "release": "ads-v17",
+  "skill_version": "skill-v3",
+  "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+  "window": {
+    "start": "2026-10-20T10:00:00Z",
+    "end": "2026-10-20T11:00:00Z"
+  },
+  "events": [
+    {
+      "tenant": "tenant-synthetic-a",
+      "agent": "Ads-Agent",
+      "skill": "roas_reporting",
+      "release": "ads-v17",
+      "skill_version": "skill-v3",
+      "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+      "id": "trace-0",
+      "trace_id": "trace-0",
+      "correlation_id": "request-0",
+      "timestamp": "2026-10-20T10:30:00Z",
+      "kind": "trace",
+      "signal": "unit_mismatch",
+      "provider": "synthetic-langfuse"
+    },
+    {
+      "tenant": "tenant-synthetic-a",
+      "agent": "Ads-Agent",
+      "skill": "roas_reporting",
+      "release": "ads-v17",
+      "skill_version": "skill-v3",
+      "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+      "id": "turn-0",
+      "trace_id": "trace-0",
+      "correlation_id": "request-0",
+      "timestamp": "2026-10-20T10:30:00Z",
+      "kind": "turn",
+      "signal": "unit_mismatch",
+      "provider": "synthetic-langfuse"
+    },
+    {
+      "tenant": "tenant-synthetic-a",
+      "agent": "Ads-Agent",
+      "skill": "roas_reporting",
+      "release": "ads-v17",
+      "skill_version": "skill-v3",
+      "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+      "id": "error-0",
+      "trace_id": "trace-0",
+      "correlation_id": "request-0",
+      "timestamp": "2026-10-20T10:30:00Z",
+      "kind": "error",
+      "signal": "unit_mismatch",
+      "provider": "synthetic-langfuse"
+    },
+    {
+      "tenant": "tenant-synthetic-a",
+      "agent": "Ads-Agent",
+      "skill": "roas_reporting",
+      "release": "ads-v17",
+      "skill_version": "skill-v3",
+      "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+      "id": "log-0",
+      "trace_id": "trace-0",
+      "correlation_id": "request-0",
+      "timestamp": "2026-10-20T10:30:00Z",
+      "kind": "log",
+      "signal": "unit_mismatch",
+      "provider": "synthetic-production-log"
+    }
+  ],
+  "quality": {
+    "before": {
+      "tenant": "tenant-synthetic-a",
+      "agent": "Ads-Agent",
+      "skill": "roas_reporting",
+      "release": "ads-v16",
+      "skill_version": "skill-v3",
+      "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+      "id": "cohort-before-0",
+      "start": "2026-10-20T09:00:00Z",
+      "end": "2026-10-20T10:00:00Z",
+      "successes": 98,
+      "total": 100,
+      "provider": "synthetic-looker"
+    },
+    "after": {
+      "tenant": "tenant-synthetic-a",
+      "agent": "Ads-Agent",
+      "skill": "roas_reporting",
+      "release": "ads-v17",
+      "skill_version": "skill-v3",
+      "source_hash": "5d3ed61acc932d243bdefaaed34fe8706788392e64e8370653e35d6be47c64a4",
+      "id": "cohort-after-0",
+      "start": "2026-10-20T10:00:00Z",
+      "end": "2026-10-20T11:00:00Z",
+      "successes": 54,
+      "total": 100,
+      "provider": "synthetic-looker"
+    }
+  }
+}

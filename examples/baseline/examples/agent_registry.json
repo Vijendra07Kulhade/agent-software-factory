@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "agents": {
+    "Ads-Agent": {
+      "skills": {
+        "roas_reporting": {
+          "source": "examples/agents/ads/roas.py",
+          "skill": "examples/agents/ads/skills/roas_reporting/SKILL.md"
+        },
+        "campaign_creation": {
+          "skill": "examples/agents/ads/skills/campaign_creation/SKILL.md"
+        }
+      }
+    },
+    "Reporting-Agent": {
+      "skills": {
+        "dashboard_summary": {}
+      }
+    },
+    "Orchestrator": {
+      "skills": {
+        "route_request": {}
+      }
+    }
+  }
+}

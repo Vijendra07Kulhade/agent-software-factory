@@ -1,0 +1,30 @@
+name: Agent incident
+description: Request a scoped agent investigation without uploading raw telemetry
+title: "[Agent incident] "
+body:
+  - type: markdown
+    attributes:
+      value: "Never paste raw conversations, secrets or production logs. Provide approved evidence references. This template is intake only; no automatic collector is wired."
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and skill
+      placeholder: Ads-Agent / roas_reporting
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected versus observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Authorized evidence references
+      description: Trace IDs, UTC time window, deployment commit, skill version, aggregate cohort/evaluator version; no raw user text.
+  - type: textarea
+    id: impact
+    attributes:
+      label: Scope and impact
+      description: Affected agent/tenant cohort, severity, sample count and whether mutations occurred.
