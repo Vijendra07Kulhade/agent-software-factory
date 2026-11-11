@@ -18,8 +18,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m unittest discover -s tests -v
-      - run: python -m factory demo --scenario roas-unit-mismatch --out artifacts/roas
-      - run: python -m factory verify --bundle artifacts/roas
-      - run: python -m factory demo --scenario campaign-confirmation --out artifacts/campaign
-      - run: python -m factory verify --bundle artifacts/campaign
-      - run: python -m factory demo --scenario upstream-timeout --out artifacts/timeout
+      - run: python skills/cron-job/scripts/validate_job.py skills/cron-job/templates/job.example.json

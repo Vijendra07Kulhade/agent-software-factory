@@ -1,0 +1,23 @@
+name: Factory work item
+description: Request a change through the ticket-driven SDLC
+title: "[Work item] "
+body:
+  - type: markdown
+    attributes:
+      value: "Describe the desired outcome. Do not paste credentials, raw customer data, or production traces; link approved evidence instead. This issue is not automatically ingested yet."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected behavior and acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Constraints and approved references

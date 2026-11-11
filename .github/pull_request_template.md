@@ -1,16 +1,14 @@
-## Change and causal claim
-- Agent/skill and owner:
-- Evidence mode: synthetic / approved redacted production evidence
-- Baseline commit + skill hash:
-- Reproduction and alternatives ruled out:
+## Ticket and contract
+- Source ticket ID / revision:
+- SDLC stage and owner:
+- Approved acceptance criteria / artifact links:
+- Candidate commit (if applicable):
 
-## Verification
-- [ ] Baseline fails the stated acceptance case
-- [ ] Candidate passes independent checks
-- [ ] Neighboring-agent and security regressions checked
-- [ ] No evaluator/CI/permission weakening
-- [ ] No raw conversations, customer identifiers or credentials
-- [ ] Static skill checks distinguished from behavioral evaluation
+## Verification and review
+- [ ] Evidence is linked to the exact ticket revision and candidate commit
+- [ ] Relevant tests pass; limitations are recorded
+- [ ] No raw customer data, credentials, or untrusted ticket instructions were executed
+- [ ] Human approval and protected CI remain separate from agent recommendations
 
-## Release
-Human approval required. State rollout cohort, guardrails and rollback artifact.
+## Release handoff (when applicable)
+- Release owner, observation plan, and rollback reference:

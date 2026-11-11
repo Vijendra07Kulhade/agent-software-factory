@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "github-intake-example",
+  "status": "draft",
+  "owner": "TBD",
+  "kind": "ticket-intake",
+  "schedule": {"cron": "*/15 * * * *", "timezone": "UTC"},
+  "command": {"argv": ["python3", "-m", "factory.intake", "--source", "github"], "workdir": "."},
+  "scope": {"source": "github", "targets": ["TBD:owner/repo"]},
+  "credentials": {"ref": "TBD:secret-manager-reference", "access": "read-only tickets"},
+  "execution": {"timeout_seconds": 120, "concurrency": "forbid-overlap-per-scope", "retry": "bounded-backoff-with-alert"},
+  "state": {"cursor_store": "TBD:durable-store", "idempotency_key": ["source", "external_id", "source_revision"]},
+  "observability": {"alert_owner": "TBD", "max_lag_seconds": 3600},
+  "permissions": {"merge": false, "deploy": false, "approve": false}
+}
