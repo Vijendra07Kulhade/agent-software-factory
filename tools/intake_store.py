@@ -1,8 +1,4 @@
-"""Offline collector-agent boundary: source adapter -> durable work items -> triage outbox.
-
-Source adapters yield complete pages. This module makes no external API requests and
-never executes ticket content. A scheduler calls CollectorAgent.run explicitly.
-"""
+"""Durable local intake ledger; no ticket API calls or agent reasoning."""
 import json
 import sqlite3
 from pathlib import Path
@@ -42,44 +38,28 @@ class IntakeStore:
         row = self.db.execute("SELECT snapshot FROM work_items WHERE source=? AND external_id=?", (source, external_id)).fetchone()
         return json.loads(row[0]) if row else None
 
-    def close(self):
-        self.db.close()
-
-
-class CollectorAgent:
-    """Owns intake only; triage workers claim outbox events separately."""
-    def __init__(self, store: IntakeStore):
-        self.store = store
-
-    def run(self, adapter, scope: str, next_cursor: str) -> int:
-        if adapter.source not in ("github", "jira") or not scope or not next_cursor:
-            raise ValueError("unsupported source, scope, or cursor")
-        # Materialize all pages before any write, so incomplete pagination fails closed.
-        pages = list(adapter.fetch(self.store.cursor(adapter.source, scope)))
-        records = [record for page in pages for record in page]
-        for record in records:
-            required = ("external_id", "revision", "title", "description", "source_url", "project", "status", "updated_at")
-            if not isinstance(record, dict) or any(not isinstance(record.get(k), str) or not record[k] for k in required):
-                raise ValueError("invalid source record")
-            if not isinstance(record.get("labels"), list) or any(not isinstance(x, str) for x in record["labels"]):
-                raise ValueError("invalid labels")
+    def persist(self, source: str, scope: str, records: list[dict], next_cursor: str) -> int:
+        """Commit revisions, current view, outbox and cursor in one transaction."""
         inserted = 0
-        with self.store.db:
+        with self.db:
             for record in records:
-                payload = json.dumps({"source": adapter.source, **record}, sort_keys=True)
-                cur = self.store.db.execute(
+                payload = json.dumps({"source": source, **record}, sort_keys=True)
+                cur = self.db.execute(
                     "INSERT OR IGNORE INTO revisions VALUES (?, ?, ?, ?)",
-                    (adapter.source, record["external_id"], record["revision"], payload))
+                    (source, record["external_id"], record["revision"], payload))
                 if cur.rowcount:
                     inserted += 1
-                    self.store.db.execute(
+                    self.db.execute(
                         "INSERT INTO work_items(source, external_id, revision, snapshot) VALUES (?, ?, ?, ?) "
                         "ON CONFLICT(source, external_id) DO UPDATE SET revision=excluded.revision, snapshot=excluded.snapshot, workflow_state='discovered'",
-                        (adapter.source, record["external_id"], record["revision"], payload))
-                    self.store.db.execute(
+                        (source, record["external_id"], record["revision"], payload))
+                    self.db.execute(
                         "INSERT INTO outbox(source, external_id, revision) VALUES (?, ?, ?)",
-                        (adapter.source, record["external_id"], record["revision"]))
-            self.store.db.execute(
+                        (source, record["external_id"], record["revision"]))
+            self.db.execute(
                 "INSERT INTO cursors VALUES (?, ?, ?) ON CONFLICT(source, scope) DO UPDATE SET value=excluded.value",
-                (adapter.source, scope, next_cursor))
+                (source, scope, next_cursor))
         return inserted
+
+    def close(self):
+        self.db.close()

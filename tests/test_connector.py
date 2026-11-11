@@ -2,7 +2,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from factory.connector import IntakeStore, CollectorAgent
+from agents.connector import CollectorAgent
+from tools.intake_store import IntakeStore
 
 
 class FakeSource:

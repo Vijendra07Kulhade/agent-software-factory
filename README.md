@@ -4,8 +4,9 @@ A ticket-driven software factory under development. The intended SDLC is intake 
 
 ## What works now
 
-- `factory/connector.py`: an offline collector boundary that accepts normalized, paginated source records through an injected adapter. It validates records, persists unique source revisions, current work-item snapshots, cursor and a triage outbox atomically in a local SQLite database. No live GitHub/Jira calls occur.
+- `agents/connector.py`: an offline collector agent that accepts normalized, paginated source records through an injected adapter, validates them, and delegates persistence. No live GitHub/Jira calls occur.
 - `skills/cron-job/SKILL.md`: a harness-agnostic procedure for authoring scheduled jobs, with a draft manifest template and validator. It is not a scheduler.
+- `tools/intake_store.py`: the local SQLite intake ledger; it atomically persists unique source revisions, current work-item snapshots, a cursor and pending triage events.
 - `docs/INTAKE_AND_BEADS.md`: Beads evaluation and limitations of the current intake slice.
 
 Run checks from the repository root (Python 3.11+):
